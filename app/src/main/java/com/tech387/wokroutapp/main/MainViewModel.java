@@ -21,7 +21,15 @@ public class MainViewModel extends AndroidViewModel {
     private ExerciseRepository mExerciseRepository;
     private Context mContext;
 
+    /**
+     * A List that notifies when changes are made.
+     * An ObservableList bound to the UI will keep the it up-to-date when changes occur.
+     */
     public final ObservableList<Exercise> mItems = new ObservableArrayList<>();
+
+    /**
+     * An observable class that holds a primitive boolean.
+     */
     public final ObservableBoolean mError = new ObservableBoolean(false);
 
     public MainViewModel(@NonNull Application application,
@@ -34,12 +42,18 @@ public class MainViewModel extends AndroidViewModel {
         mExerciseRepository = exerciseRepository;
     }
 
+    /**
+     * add in ObservableList data from repository
+     */
     public void start() {
         if (mItems.isEmpty()) {
             getExercise();
         }
     }
 
+    /**
+     * get data from repository onSuccess and onError
+     */
     public void getExercise() {
         mContentRepository = Injection.provideContentRepository(mContext);
         mContentRepository.getContent();
